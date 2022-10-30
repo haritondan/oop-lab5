@@ -1,23 +1,16 @@
-import java.awt.desktop.SystemEventListener;
-import java.util.ArrayList;
 
-public class Bar extends  Section{
+import java.util.HashMap;
 
-    public ArrayList<String> item;
+public class Bar extends  Section {
+    public HashMap<String, Integer> barMenu = new HashMap<String, Integer>();
 
-    Bar(String Name){
+    Bar(String Name) {
         super(Name);
-        item = new ArrayList<>();
-        item.add("Enzo");
-        item.add("Martini");
-        item.add("B52\n");
+        barMenu.put("Enzo", 50);
+        barMenu.put("Martini", 20);
+        barMenu.put("B52", 40);
     }
 
-    void showElements(){
-        for(int i = 0; i < item.size(); i++){
-        System.out.println(item.get(i));
-        }
-    }
     @Override
     public void fire(){
         System.out.println("*" + name + " section is on fire*");

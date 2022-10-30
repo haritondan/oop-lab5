@@ -1,24 +1,16 @@
-import java.awt.desktop.SystemEventListener;
-import java.util.ArrayList;
+
+import java.util.HashMap;
 
 public class Sushi extends  Section{
 
-    public ArrayList<String> item;
 
-    Sushi(String Name){
+    public HashMap<String, Integer> sushiMenu = new HashMap<String, Integer>();
+    Sushi(String Name) {
         super(Name);
-        item = new ArrayList<>();
-        item.add("Naghiri");
-        item.add("Dragon Rolls");
-        item.add("Poke Bowl\n");
+        sushiMenu.put("Naghiri", 25);
+        sushiMenu.put("Dragon Rolls", 30);
+        sushiMenu.put("Poke Bowl", 20);
     }
-
-    void showElements(){
-        for(int i = 0; i < item.size(); i++){
-            System.out.println(item.get(i));
-        }
-    }
-
     @Override
     public void fire(){
         System.out.println("*" + name + " section is on fire*");

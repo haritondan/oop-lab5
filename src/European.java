@@ -1,23 +1,16 @@
-import java.awt.desktop.SystemEventListener;
-import java.util.ArrayList;
+
+import java.util.HashMap;
 
 public class European extends  Section{
 
-    public ArrayList<String> item;
-
-    European(String Name){
+    public HashMap<String, Integer> euroMenu = new HashMap<String, Integer>();
+    European(String Name) {
         super(Name);
-        item = new ArrayList<>();
-        item.add("Zeama UTM");
-        item.add("Pasta Pardono");
-        item.add("Lovele Saltele\n");
+        euroMenu.put("Zeama UTM", 15);
+        euroMenu.put("Pasta Pardono", 20);
+        euroMenu.put("Lovele Saltele", 35);
     }
 
-    void showElements(){
-        for(int i = 0; i < item.size(); i++){
-            System.out.println(item.get(i));
-        }
-    }
     @Override
     public void fire(){
         System.out.println("*" + name + " section is on fire*");

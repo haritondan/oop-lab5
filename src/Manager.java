@@ -1,6 +1,4 @@
 interface clientDisputes{
-    void clientDisagree();
-    void deescalateSituation();
     void escortClientOut();
 }
 
@@ -23,34 +21,22 @@ public class Manager extends Person implements clientDisputes, managerResponsibi
     }
     @Override
     void showName(){
-        System.out.println("I am the manager, " + name);
+        System.out.println("I am the manager, " + name+ ", I am the " + position + ". What can I help you with?");
     }
     void openRestaurant(){
         System.out.println("Uchiha RestoBar is now open\n");
-    }
-    void talkToClient(){
-        System.out.println("\nHello sir. My name is " + name + ", I am the " + position + ". What can I help you with?");
-    }
-    void getNewOrder(){
-        System.out.println("\nHere is your new order. I am truly sorry for the inconvenience, enjoy your meal sir.");
     }
     void closeRestaurant(){
         System.out.println("The Restaurant has been closed");
     }
 
     //func for ClientDisputes interface
-    public void clientDisagree() {
-        System.out.println("Everything is normal with you order sir");
-    }
-    public void deescalateSituation() {
-        System.out.println("Please calm down!");
-    }
     public void escortClientOut() {
-        System.out.println("Please, leave our restaurant now!");
+        System.out.println("The manager escorted the client out");
     }
 
     //func for the managerResponsibility interface
     public void escortFire() {
-        System.out.println("Dear Clients, we have fire at one of our sections. As of right now our restaurant is closed.\nPlease follow our waiters outside \n");
+        System.out.println("Fire broke out. The manager escorted the clients\n");
     }
 }

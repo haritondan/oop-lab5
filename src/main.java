@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.Random;
 
 public class main {
-    public static  void main(String[] args){
+    public static void main(String[] args){
 
         Manager m1 = new Manager("Dan", "General Manager");
         Waiter w1 = new Waiter("Cristian", m1);
@@ -33,47 +33,47 @@ public class main {
             switch (ch){
                 case 1://Everything is normal
                     c1.arrived();
-                    w1.greetClient();
+
                     w1.showMenus();
                     int menu1 = random.nextInt(1,4);
                     if(menu1 == 1) {
                         System.out.println("Client chose the " + b1.name + " menu: ");
-                        b1.showElements();
+
                     } else if (menu1 == 2) {
                         System.out.println("Client chose the " + e1.name + " menu: ");
-                        e1.showElements();
+
                     }else {
                         System.out.println("Client chose the " + s1.name + " menu: ");
-                        s1.showElements();
+
                     }
-                    c1.Order();
-                    w1.bringOrder();
+                    c1.order();
+
                     c1.payClient();
                     break;
                 case 2://Waiter drops the food
                     c1.arrived();
-                    w1.greetClient();
+
                     w1.showMenus();
                     int m2 = random.nextInt(1,4);
                     if(m2 == 1) {
                         System.out.println("Client chose the " + b1.name + " menu: ");
-                        b1.showElements();
+
                     } else if (m2 == 2) {
                         System.out.println("Client chose the " + e1.name + " menu: ");
-                        e1.showElements();
+
                     }else {
                         System.out.println("Client chose the " + s1.name + " menu: ");
-                        s1.showElements();
+
                     }
-                    c1.Order();
+                    c1.order();
                     w1.dropOrder();
                     int i = random.nextInt(1,3);
                    // System.out.println(i);
                     if(i == 1){
-                        w1.bringAnotherOrder();
+
                         c1.payClient();
                     }else{
-                        c1.clientDropLeft();
+
                     }
                     break;
                 case 3://the food is bad gets a replacement

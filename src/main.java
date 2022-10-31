@@ -6,8 +6,14 @@ import java.util.*;
 
 import java.util.Random;
 
+import static java.lang.Math.min;
+
 public class main {
     public static void main(String[] args) {
+        Bar bar = new Bar("Bar");
+        European european = new European("European");
+        Sushi sushi = new Sushi("Sushi");
+        Stock stock = new Stock("Restaurant Stock");
         ArrayList<String> names = new ArrayList<>();
         try {
             File myObj = new File("names.txt");
@@ -26,30 +32,56 @@ public class main {
         Random random = new Random();
         int clientNumber = 0;
 
-        //while(true) {
+        while(true) {
             float eventChooser = random.nextFloat(0,1);
-            System.out.println(eventChooser);
-            if(eventChooser < 0.15) {
-                restaurant.manager.openRestaurant();
-                System.out.println("error");
+
+            if(eventChooser <0.2)
+        {   restaurant.manager.openRestaurant();
+            int r = random.nextInt(1,4);
+            String section;
+            if (r == 1){
+                section = bar.name;
+            } else if (r == 2) {
+                 section = sushi.name;
+            }else {section = european.name;}
+            System.out.println("A fire broke out at section" + section);
+            restaurant.manager.escortFire();
+            restaurant.manager.closeRestaurant();
+        }
+        else {
                 restaurant.manager.closeRestaurant();
-            }
-            else {
+                if (eventChooser < 0.15) {
+                for (Iterator<Map.Entry<Client, Integer>> it = restaurant.clientList.entrySet().iterator(); it.hasNext(); ) {
+                    Map.Entry<Client, Integer> entry = it.next();
+                    entry.getKey().clientWedding();
+                    entry.getKey().spousesLeft();
+                }
+                restaurant.manager.closeRestaurant();
+            } else {
+                restaurant.manager.openRestaurant();
                 LocalTime time = LocalTime.parse("08:00");
                 do {
                     System.out.println(time);
                     time = time.plusMinutes(15);
                     //manager
                     int rand = random.nextInt(0, names.size());
-                    clientNumber ++;
-                    for(Iterator<Map.Entry<Client, Integer>> it = restaurant.clientList.entrySet().iterator(); it.hasNext(); ) {
+                    for (Iterator<Map.Entry<Client, Integer>> it = restaurant.clientList.entrySet().iterator(); it.hasNext(); ) {
                         Map.Entry<Client, Integer> entry = it.next();
                         if (entry.getKey().hasOrder && random.nextFloat(0, 1) < 0.15) {
+                            entry.getKey().complaint();
+                            if (random.nextFloat(0, 1) < 0.8) {
+                                restaurant.manager.newFood();
+                            } else {
+                                restaurant.manager.escortClientOut();
+                            }
+                        }
+                        if (entry.getKey().hasOrder && random.nextFloat(0, 1) < 0.15) {
                             entry.getKey().waiter.dropOrder();
+
                         }
                         if (!entry.getKey().hasOrder && random.nextFloat(0, 1) < 0.9) {
                             entry.getKey().hasOrder = true;
-                            restaurant.bugetPerDay += entry.getKey().order();
+                            restaurant.budgetPerDay += entry.getKey().order();
                         } else {
                             if (random.nextFloat(0, 1) < 0.15 * restaurant.clientList.get(entry.getKey())) {
                                 entry.getKey().left();
@@ -59,189 +91,28 @@ public class main {
                             }
                         }
                     }
-                    restaurant.clientList.put(new Client(names.get(rand), clientNumber, restaurant.getAvailableWaiter().get()), 0);
-
-
-
+                    for (int i = 0; i < min(random.nextInt(1, 2), restaurant.restaurantCapacity - restaurant.clientList.size()); i++) {
+                        restaurant.clientList.put(new Client(names.get(rand), clientNumber, restaurant.getAvailableWaiter().get(), bar, european, sushi), 0);
+                        clientNumber++;
+                    }
+                    System.out.println("Clients in the restaurant: " + restaurant.clientList.size());
+                    System.out.println("The last clients left");
 
                 } while (time.isBefore(LocalTime.parse("20:01")));
+                restaurant.manager.closeRestaurant();
             }
-        System.out.println(restaurant.bugetPerDay);
-        //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
-}
-//
-       /* int ch;
-        do {
-            System.out.println("Enter 1 for the normal client scenario");
-            System.out.println("Enter 2 for the dropped the food scenario");
-            System.out.println("Enter 3 for the manager replaced the food scenario");
-            System.out.println("Enter 4 for the manager and client argue scenario");
-            System.out.println("Enter 5 for the fire hazard scenario");
-            System.out.println("Enter 6 for the special events scenario");
-            System.out.println("Enter 9 for the restaurant stocks scenario");
-            System.out.println("Enter 0 to stop the program");
-            System.out.println("Enter your choice:");
-            ch = scan.nextInt();
-            switch (ch){
-                case 1://Everything is normal
-                    c1.arrived();
-
-                    w1.showMenus();
-                    int menu1 = random.nextInt(1,4);
-                    if(menu1 == 1) {
-                        System.out.println("Client chose the " + b1.name + " menu: ");
-
-                    } else if (menu1 == 2) {
-                        System.out.println("Client chose the " + e1.name + " menu: ");
-
-                    }else {
-                        System.out.println("Client chose the " + s1.name + " menu: ");
-
-                    }
-                    c1.order();
-
-                    c1.payClient();
-                    break;
-                case 2://Waiter drops the food
-                    c1.arrived();
-
-                    w1.showMenus();
-                    int m2 = random.nextInt(1,4);
-                    if(m2 == 1) {
-                        System.out.println("Client chose the " + b1.name + " menu: ");
-
-                    } else if (m2 == 2) {
-                        System.out.println("Client chose the " + e1.name + " menu: ");
-
-                    }else {
-                        System.out.println("Client chose the " + s1.name + " menu: ");
-
-                    }
-                    c1.order();
-                    w1.dropOrder();
-                    int i = random.nextInt(1,3);
-                   // System.out.println(i);
-                    if(i == 1){
-
-                        c1.payClient();
-                    }else{
-
-                    }
-                    break;
-                case 3://the food is bad gets a replacement
-                    c1.arrived();
-                    w1.greetClient();
-                    w1.showMenus();
-                    int m3 = random.nextInt(1,4);
-                    if(m3 == 1) {
-                        System.out.println("Client chose the " + b1.name + " menu: ");
-                        b1.showElements();
-                    } else if (m3 == 2) {
-                        System.out.println("Client chose the " + e1.name + " menu: ");
-                        e1.showElements();
-                    }else {
-                        System.out.println("Client chose the " + s1.name + " menu: ");
-                        s1.showElements();
-                    }
-                    c1.Order();
-                    c1.Vomit();
-                    w1.cUnplesead();
-                    c1.Complaint();
-                    m1.talkToClient();
-                    c1.ToManager();
-                    m1.getNewOrder();
-                    c1.payClient();
-                    break;
-                case 4://the food is good but the client tries to get food for free
-                    c1.arrived();
-                    w1.greetClient();
-                    w1.showMenus();
-                    int m4 = random.nextInt(1,4);
-                    if(m4 == 1) {
-                        System.out.println("Client chose the " + b1.name + " menu: ");
-                        b1.showElements();
-                    } else if (m4 == 2) {
-                        System.out.println("Client chose the " + e1.name + " menu: ");
-                        e1.showElements();
-                    }else {
-                        System.out.println("Client chose the " + s1.name + " menu: ");
-                        s1.showElements();
-                    }
-                    c1.Order();
-                    c1.Vomit();
-                    w1.cUnplesead();
-                    c1.Complaint();
-                    m1.talkToClient();
-                    c1.ToManager();
-                    m1.clientDisagree();
-                    c1.disagreeManager();
-                    m1.deescalateSituation();
-                    int f = random.nextInt(1,3);
-                    if (f != 1) {
-                        c1.conArgue();
-                        m1.escortClientOut();
-                    }
-                    c1.left();
-                    break;
-                case 5://Section Emergency
-                    int sf = random.nextInt(1,4);
-                    if(sf == 1){
-                        b1.fire();
-                    } else if (sf == 2) {
-                        e1.fire();
-                    } else {
-                    s1.fire();
-                    }
-                    w1.sectionOnFire();
-                    m1.escortFire();
-                    break;
-                case 6://Special Events
-                    c1.arrived();
-                    w1.greetClient();
-                    c1.signWaiter();
-                    w1.showMenus();
-                    c1.Order();
-                    w1.bringCakeRing();
-                    c1.propose();
-                    w1.fireworks();
-                    c1.spousesLeft();
-
-                    break;
-                case 9:
-                    stock.showElements();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Wrong Input!");
-                    break;
-
+        }
+            int profit = restaurant.budgetPerDay - restaurant.wageBill;
+            int profitMonth =+ profit;
+            System.out.println("Profit for the day: " + profit);
+            int i =+1;
+            if (i % 30 == 0){
+                System.out.println("Profit for the Month: "+ profitMonth);
             }
-
-
-        }while(ch != 0);
-        m1.closeRestaurant();
-
+        }
     }
 
 }
-
-*/
-
 
 
 

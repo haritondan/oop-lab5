@@ -6,10 +6,11 @@ import java.util.*;
 public class Restaurant {
     HashMap<Client, Integer> clientList = new HashMap<Client, Integer>();
     ArrayList<Waiter> waiterList = new ArrayList<Waiter>();
-    int restaurantCapacity = 50;
+    int restaurantCapacity = 30;
+    int wageBill = 350;
     Manager manager = new Manager("Dan","General Manager");
-    int clientsPerWaiter = 4;
-    int bugetPerDay = 0;
+    int clientsPerWaiter = 5;
+    int budgetPerDay = 0;
     Restaurant(){
         ArrayList<String> names = new ArrayList<>();
         try {
@@ -25,7 +26,7 @@ public class Restaurant {
             e.printStackTrace();
         }
         Random random = new Random();
-        for (int i = 0; i < 50; i++ ){
+        for (int i = 0; i < 20; i++ ){
             int rand = random.nextInt(0, names.size());
             waiterList.add(new Waiter(names.get(rand),manager));
         }
@@ -45,4 +46,5 @@ public class Restaurant {
         }
         return Optional.empty();
     }
+
 }

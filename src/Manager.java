@@ -8,6 +8,7 @@ interface managerResponsibility {
 public class Manager extends Person implements clientDisputes, managerResponsibility {
 
     public String position;
+    public String waiterName;
     Manager(String Name, String Position){
         super(Name);
         position = Position;
@@ -24,17 +25,19 @@ public class Manager extends Person implements clientDisputes, managerResponsibi
         System.out.println("I am the manager, " + name+ ", I am the " + position + ". What can I help you with?");
     }
     void openRestaurant(){
-        System.out.println("Uchiha RestoBar is now open");
+        System.out.println("Uchiha RestoBar is now open\n");
     }
     void closeRestaurant(){
-        System.out.println("The Restaurant has been closed");
+        System.out.println("The Restaurant has been closed\n");
     }
 
     //func for ClientDisputes interface
     public void escortClientOut() {
-        System.out.println("The manager escorted the client out");
+        System.out.println("The manager escorted the client out\n");
     }
-
+    public void newFood(){
+        System.out.println("Manager brought new food\n");
+    }
     //func for the managerResponsibility interface
     public void escortFire() {
         System.out.println("Fire broke out. The manager escorted the clients\n");

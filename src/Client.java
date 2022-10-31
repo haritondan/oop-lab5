@@ -5,9 +5,13 @@ interface clientSpecial{
 
 public class Client extends Person implements clientSpecial {
     public int number;
-    public Client(String Name,int Number){
+    boolean hasOrder = false;
+    public Waiter waiter;
+    public Client(String Name,int Number, Waiter waiter){
         super(Name);
         number = Number;
+        this.waiter = waiter;
+        arrived();
     }
     //the basic func of our class
     @Override
@@ -15,15 +19,17 @@ public class Client extends Person implements clientSpecial {
         System.out.println("Client name is " + name);
     }
     void arrived(){//Client arrived
-        System.out.println("Client "+number + " has arrived\n");
+        System.out.println("Client "+ number + " has arrived " + name +".This Client waiter is "+ waiter.name +"\n");
     }
-    void order(){
+    int order(){
         System.out.println("Client made the order\n");
+
+        return 10;
     }
     void payClient(){
         System.out.println("Client" + " " +number + " paid and left.\n");
     }
-    void left(){System.out.println("Client left.");}
+    void left(){System.out.println("Client "+ number + " has left\n");}
 
 
     //for the clientSpecial interface

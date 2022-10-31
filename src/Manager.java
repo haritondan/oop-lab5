@@ -24,7 +24,7 @@ public class Manager extends Person implements clientDisputes, managerResponsibi
         System.out.println("I am the manager, " + name+ ", I am the " + position + ". What can I help you with?");
     }
     void openRestaurant(){
-        System.out.println("Uchiha RestoBar is now open\n");
+        System.out.println("Uchiha RestoBar is now open");
     }
     void closeRestaurant(){
         System.out.println("The Restaurant has been closed");

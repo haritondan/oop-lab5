@@ -1,3 +1,4 @@
+import java.util.Random;
 
 interface waiterDropsOrder{
     void dropOrder();
@@ -21,6 +22,7 @@ public class Waiter extends Person implements waiterDropsOrder{
     }
     public  void dropOrder(){
         System.out.println("The Waiter dropped the order");
+        Random random = new Random();
     }
 
 }
